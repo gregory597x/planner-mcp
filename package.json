@@ -1,0 +1,44 @@
+{
+  "name": "planner-mcp",
+  "version": "0.1.0",
+  "description": "MCP connector for a self-hosted Planner HTTP backend. Exposes ingest, list, health, and current-work tools over stdio or streamable HTTP.",
+  "type": "module",
+  "bin": {
+    "planner-mcp": "dist/server.js"
+  },
+  "scripts": {
+    "build": "tsc",
+    "start": "node dist/server.js",
+    "start:http": "node dist/server.js --http 8765",
+    "dev": "tsc --watch",
+    "typecheck": "tsc --noEmit"
+  },
+  "keywords": [
+    "mcp",
+    "model-context-protocol",
+    "claude",
+    "planner",
+    "ingest",
+    "task-management"
+  ],
+  "author": "Greg Thompson",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/gthompsn3/planner-mcp.git"
+  },
+  "bugs": {
+    "url": "https://github.com/gthompsn3/planner-mcp/issues"
+  },
+  "engines": {
+    "node": ">=20"
+  },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.0.4",
+    "zod": "^3.23.8"
+  },
+  "devDependencies": {
+    "@types/node": "^20.11.0",
+    "typescript": "^5.4.0"
+  }
+}
