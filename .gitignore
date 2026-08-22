@@ -1,5 +1,6 @@
 # Node
 node_modules/
+*.log
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
@@ -19,3 +20,6 @@ Thumbs.db
 *~
 .vscode/
 .idea/
+
+# Named API keys (never commit)
+keys.json

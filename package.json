@@ -1,7 +1,7 @@
 {
   "name": "planner-mcp",
-  "version": "0.1.0",
-  "description": "MCP connector for a self-hosted Planner HTTP backend. Exposes ingest, list, health, and current-work tools over stdio or streamable HTTP.",
+  "version": "0.2.0",
+  "description": "MCP server for a self-hosted Planner backend: task + work-router tools over stdio or streamable HTTP, with named API-key auth and a REST proxy for OpenAPI clients.",
   "type": "module",
   "bin": {
     "planner-mcp": "dist/server.js"
@@ -9,7 +9,7 @@
   "scripts": {
     "build": "tsc",
     "start": "node dist/server.js",
-    "start:http": "node dist/server.js --http 8765",
+    "start:http": "node dist/server.js --http 8770",
     "dev": "tsc --watch",
     "typecheck": "tsc --noEmit"
   },
@@ -25,10 +25,10 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/gthompsn3/planner-mcp.git"
+    "url": "https://github.com/gregory597x/planner-mcp.git"
   },
   "bugs": {
-    "url": "https://github.com/gthompsn3/planner-mcp/issues"
+    "url": "https://github.com/gregory597x/planner-mcp/issues"
   },
   "engines": {
     "node": ">=20"
