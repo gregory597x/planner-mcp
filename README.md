@@ -1,8 +1,10 @@
 # planner-mcp
 
+[![CI](https://github.com/gregory597x/planner-mcp/actions/workflows/ci.yml/badge.svg)](https://github.com/gregory597x/planner-mcp/actions/workflows/ci.yml)
+
 A production-deployed [Model Context Protocol](https://modelcontextprotocol.io) server, written in TypeScript against the official MCP SDK, that connects Claude (Claude Code, the Claude desktop app, claude.ai custom connectors) — and non-MCP clients like ChatGPT custom GPTs — to a self-hosted task Planner and work-context router.
 
-It runs daily as a real service: a launchd daemon on macOS, fronted by a Cloudflare tunnel, serving multiple AI clients against the same backend.
+It runs daily as a real service: a launchd daemon on macOS serving multiple AI clients against the same backend — originally fronted by a Cloudflare tunnel, now reachable only over a private tailnet. [docs/demo.md](docs/demo.md) is a live transcript of the full loop — initialize → `router_task_start` → `router_task_complete` — captured against the running daemon.
 
 **What this repo demonstrates**
 
@@ -10,6 +12,7 @@ It runs daily as a real service: a launchd daemon on macOS, fronted by a Cloudfl
 - **Named API-key authentication**: per-person keys in a `keys.json` (0600) with hot reload — adding or revoking a key takes effect without a restart — constant-time comparison, per-key usage logging, and a legacy env-var fallback for zero-downtime migration.
 - A **REST proxy door** on the same port, so OpenAPI/Actions clients (e.g. ChatGPT custom GPTs) can reach the same backend through the same auth layer.
 - **Zod-validated tool boundary**: runtime schema checks guard every tool input so a model can't send malformed JSON upstream.
+- **Tested and CI-checked**: vitest unit tests on the auth module (hot reload, revocation, env fallback, corrupt-file recovery) plus a stdio smoke test that runs a real MCP handshake against the built server; GitHub Actions runs typecheck, build, and tests on every push.
 - Deliberate scope: fail-closed bind rules, no secrets in the repo, and a "what this is NOT" section below.
 
 ## Architecture
@@ -74,7 +77,20 @@ Smoke test without any client or backend:
 echo '{"jsonrpc":"2.0","id":1,"method":"tools/list"}' | node dist/server.js
 ```
 
-prints a JSON-RPC response listing all ten tools. With a Planner backend running, `tools/call` on `planner_health` returns `Planner is UP (200): ok`.
+prints a JSON-RPC response listing all ten tools. With a Planner backend running, `tools/call` on `planner_health` returns `Planner is UP (200): ok`. For a full captured session against the live backend, see [docs/demo.md](docs/demo.md).
+
+## Testing
+
+```bash
+npm test
+```
+
+Runs the vitest suite:
+
+- **`tests/api_keys.test.ts`** — the auth module in isolation: named-key match via both headers, disabled-key rejection, the legacy env fallback, and the mtime-based hot reload (revocation without restart, corrupt-file tolerance, recovery).
+- **`tests/server_smoke.test.ts`** — spawns the built server on stdio, performs a real MCP initialize handshake, and asserts the full advertised tool list.
+
+CI (`.github/workflows/ci.yml`) runs `typecheck`, `build`, and the suite on every push and pull request.
 
 ## HTTP mode and authentication
 
@@ -134,6 +150,11 @@ planner-mcp/
 ├── LICENSE                    # MIT
 ├── gateway_key.zsh            # add/revoke/enable/remove/list named keys
 ├── run_gateway.zsh            # service launcher (sources .env, runs --http 8770)
+├── docs/
+│   └── demo.md                # live captured MCP transcript (redacted)
+├── tests/
+│   ├── api_keys.test.ts       # auth module: match, revocation, hot reload
+│   └── server_smoke.test.ts   # stdio handshake + tool-list assertion
 └── src/
     ├── server.ts              # tool wiring, transports, auth gate, REST proxy
     ├── api_keys.ts            # named keys: hot reload, constant-time match
