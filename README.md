@@ -4,7 +4,7 @@
 
 A production-deployed [Model Context Protocol](https://modelcontextprotocol.io) server, written in TypeScript against the official MCP SDK, that connects Claude (Claude Code, the Claude desktop app, claude.ai custom connectors) — and non-MCP clients like ChatGPT custom GPTs — to a self-hosted task Planner and work-context router.
 
-It runs daily as a real service: a launchd daemon on macOS serving multiple AI clients against the same backend — originally fronted by a Cloudflare tunnel, now reachable only over a private tailnet. [docs/demo.md](docs/demo.md) is a live transcript of the full loop — initialize → `router_task_start` → `router_task_complete` — captured against the running daemon.
+It runs daily as a real service: a launchd daemon on macOS serving multiple AI clients against the same backend, reachable only over a private network. [docs/demo.md](docs/demo.md) is a live transcript of the full loop — initialize → `router_task_start` → `router_task_complete` — captured against the running daemon.
 
 **What this repo demonstrates**
 
@@ -25,7 +25,7 @@ ChatGPT custom GPT (OpenAPI) ───┤         ▼
 curl / scripts ─────────────────┘   ┌──────────────────┐     ┌─────────────────────┐
         │                           │                  │────►│ Planner backend     │
         ▼                           │                  │     │ (Axum + Postgres)   │
-  Cloudflare tunnel ──► :8770 ────► │  planner-mcp     │     └─────────────────────┘
+  private network ────► :8770 ────► │  planner-mcp     │     └─────────────────────┘
                         bearer auth │  --http mode     │     ┌─────────────────────┐
                         (keys.json) │  MCP + REST door │────►│ work-router daemon  │
                                     └──────────────────┘     │ (pgvector retrieval)│

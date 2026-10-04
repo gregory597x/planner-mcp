@@ -45,15 +45,15 @@ that actually discuss this repo:
      \"chat_id\": \"planner-mcp-demo-01\",
      \"alignment_context\": [
        {
-         \"source_path\": \"[elided]/md_staging/TCS-Planner/project-plan-with-estimates-2026-07-15.md\",
-         \"document_title\": \"TCS Project Plan — 2026-07-15\",
+         \"source_path\": \"[elided]/project-plan-2026-07-15.md\",
+         \"document_title\": \"Project plan — 2026-07-15\",
          \"chunk_text\": \"[elided — private knowledge-base content]\",
          \"canonical_rank\": 100,
          \"score\": 0.0396
        },
        {
-         \"source_path\": \"[elided]/md_staging/TCS-Planner/master-project-list-2026-07-15.md\",
-         \"document_title\": \"Master project list — 2026-07-15\",
+         \"source_path\": \"[elided]/project-list-2026-07-15.md\",
+         \"document_title\": \"Project list — 2026-07-15\",
          \"chunk_text\": \"[elided — private knowledge-base content]\",
          \"canonical_rank\": 100,
          \"score\": 0.0334

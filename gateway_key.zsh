@@ -1,5 +1,5 @@
 #!/usr/bin/env zsh
-# gateway_key.zsh — manage named API keys for the EKS public gateway.
+# gateway_key.zsh — manage named API keys for the HTTP gateway.
 #
 #   ./gateway_key.zsh add <name>       generate a key, add it, print it once
 #   ./gateway_key.zsh revoke <name>    mark a key disabled (401 immediately)
