@@ -1,8 +1,8 @@
 {
  "task": "Research brief: A (Ohm et al. NMR Biomed 2023 citation), B (FDA clearance costs)",
  "started": "2026-10-04",
- "state": "in_progress",
- "A": "draft written: NOT ESTABLISHED (databases blocked by network policy)",
- "B": "research running",
+ "state": "draft complete; needs primary-source verification",
+ "A": "NOT ESTABLISHED (databases blocked)",
+ "B": "PARTIAL, all figures unverified against primary docs",
  "updated": "2026-10-04"
 }
