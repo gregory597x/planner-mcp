@@ -14,7 +14,7 @@ let keysFile: string;
 // KEYS_FILE is resolved from the environment at module load, so the env var
 // must be set before the module is first imported — hence the dynamic import.
 beforeAll(async () => {
-  dir = mkdtempSync(join(tmpdir(), "planner-mcp-keys-"));
+  dir = mkdtempSync(join(tmpdir(), "role-planner-mcp-keys-"));
   keysFile = join(dir, "keys.json");
   process.env.MCP_PUBLIC_KEYS_FILE = keysFile;
   delete process.env.MCP_PUBLIC_API_KEY;

@@ -1,0 +1,78 @@
+{
+  "source_path": "$HOME/TCS-Knowledge_Systems/test_cases/placeholders.md",
+  "kb_id": "general",
+  "document_title": "Placeholders \u2014 write the record without the specifics",
+  "project_name": "global",
+  "doc_type": "reference",
+  "scope": "global",
+  "status": "active",
+  "trust_state": "enforced",
+  "prompt_tag": "test-cases-placeholders",
+  "version": null,
+  "content_hash": "sha256:3486e5937ff68cdd9b483846c6dd25aa24fd8bd7ddef7419cf0db0d5c38f5148",
+  "metadata": {
+    "prompt_tag": "test-cases-placeholders",
+    "capabilities": []
+  },
+  "chunks": [
+    {
+      "chunk_index": 0,
+      "content": "# Placeholders\n\nGreg's rule, 2026-09-24: **the record uses placeholders instead of specific\nvalues.** Not \"scrub before publishing\" \u2014 *write it this way in the first\nplace*. A value that was never in the file cannot leak from it, and the deny\nlist then catches slips rather than carrying the whole job.",
+      "content_hash": "sha256:78e68603821667838c356c08dbe88c32ec292e6a48c0e9fb75b732bcd7b857d8",
+      "heading_path": [
+        "# Placeholders"
+      ],
+      "chunk_type": "section",
+      "token_estimate": 302,
+      "canonical_rank": 100
+    },
+    {
+      "chunk_index": 1,
+      "content": "## The table\n\n| real thing | placeholder |\n|---|---|\n| the Mac's hostname | `<HOST>` |\n| the tailnet name (`*.ts.net`) | `<TAILNET>` |\n| a Tailscale address (`100.x.x.x`) | `<TAILSCALE-IP>` |\n| a LAN address (`192.168.x`, `10.x`) | `<LAN-IP>` |\n| the home directory | `$HOME` |\n| the login account name | `<USER>` |\n| the Postgres container name | `<PG-CONTAINER>` |\n| a database role | `<DB-ROLE>` |\n| a schema name | `<SCHEMA>` |\n| an email address | `<EMAIL>` |\n| an owned domain | `<DOMAIN>` |\n| a chat id containing any of the above | substitute inside it: `<ROLE>-<HOST>-2` |",
+      "content_hash": "sha256:0eabf30fb21faa595e00aed63098e39821611c551f58048fe22064cc73eada60",
+      "heading_path": [
+        "# Placeholders",
+        "## The table"
+      ],
+      "chunk_type": "section",
+      "token_estimate": 581,
+      "canonical_rank": 100
+    },
+    {
+      "chunk_index": 2,
+      "content": "## Kept real, deliberately\n\n- **`127.0.0.1` and `localhost`.** Every machine has them and they are\n  reachable from nowhere. Replacing them only makes examples harder to read.\n- **Port numbers on loopback.** `:8000` on `127.0.0.1` is not a route in.\n- **Role and project names.** These are vocabulary \u2014 the generic form is what\n  gets published (`role-recovery`, `role-solver-b` and the rest of the alias\n  table), and blanking them entirely makes the record useless, which is its own\n  kind of failure. This document names none of the internal slugs on purpose:\n  it is the table that EXPLAINS the substitution, so running it through the\n  substitution turns the explanation into nonsense. Authored generic, published\n  unchanged, hash-attested.\n- **Numbers and results.** The whole point of a record is the evidence: 21\n  checks, 5 induced failures, 30 h stall. Never generalise a measurement.",
+      "content_hash": "sha256:931e60687f5fb4eb22a529484f8617e674ba9ec7fab65681d7ad77ed3de108d6",
+      "heading_path": [
+        "# Placeholders",
+        "## Kept real, deliberately"
+      ],
+      "chunk_type": "section",
+      "token_estimate": 895,
+      "canonical_rank": 100
+    },
+    {
+      "chunk_index": 3,
+      "content": "## The limit of the deny list\n\nA scrubber only catches what it has been told to look for. A record naming a\nnew host, a new domain, a client, or a collaborator passes clean because\nnothing lists it. So:\n\n- authoring in placeholders is the control,\n- the deny list is the net,\n- and a human reads the directory before it is shared.\n\nThree layers, because the first two are each individually insufficient.",
+      "content_hash": "sha256:1ed254b4d3ba14c57609f8469a207a9e7bbc0f05817f03112d20a2a8726d6776",
+      "heading_path": [
+        "# Placeholders",
+        "## The limit of the deny list"
+      ],
+      "chunk_type": "section",
+      "token_estimate": 403,
+      "canonical_rank": 100
+    },
+    {
+      "chunk_index": 4,
+      "content": "## When a specific value is genuinely needed\n\nPut it in the app's own tree, which is private, and reference it from the\nrecord by name \u2014 \"the reference build config at `$HOME/<app>/build.conf`\".\nThe record says what was run and what happened; it does not have to be a\nworking copy of the environment.",
+      "content_hash": "sha256:cac39ab99cfcbea1ccd9c5d3b4be3ddb6e460aee13b66384cd9d912f7c0a6b56",
+      "heading_path": [
+        "# Placeholders",
+        "## When a specific value is genuinely needed"
+      ],
+      "chunk_type": "section",
+      "token_estimate": 300,
+      "canonical_rank": 100
+    }
+  ]
+}

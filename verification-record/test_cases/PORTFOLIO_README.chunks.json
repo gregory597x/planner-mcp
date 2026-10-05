@@ -1,0 +1,90 @@
+{
+  "source_path": "$HOME/TCS-Knowledge_Systems/test_cases/PORTFOLIO_README.md",
+  "kb_id": "general",
+  "document_title": "$HOME/TCS-Knowledge_Systems/test_cases/PORTFOLIO_README.md",
+  "project_name": "General",
+  "doc_type": "rule_set",
+  "scope": "root",
+  "status": "active",
+  "trust_state": "authoritative",
+  "prompt_tag": "",
+  "version": null,
+  "content_hash": "sha256:ed8c0b54a06132d01116876d91563ab2ecf71922948305d9bf5c485017741882",
+  "metadata": {
+    "prompt_tag": "",
+    "capabilities": []
+  },
+  "chunks": [
+    {
+      "chunk_index": 0,
+      "content": "# Verification record \u2014 multi-agent engineering system\n\nA record of tests that have actually been run against a private system, and the\ndaemons that run them. **Not a runnable suite**: the system under test is not\npublished, and these files are evidence rather than a product.\n\nPublished because the interesting part is not that the tests pass. It is what\nhad to be true before a passing test meant anything.",
+      "content_hash": "sha256:8415567830494f8ce4622b2792819a5d875f13a4c029e2db5909617247962176",
+      "heading_path": [
+        "# Verification record \u2014 multi-agent engineering system"
+      ],
+      "chunk_type": "section",
+      "token_estimate": 408,
+      "canonical_rank": 100
+    },
+    {
+      "chunk_index": 1,
+      "content": "## The rule this record is built on\n\n> A test nobody has seen fail measures nothing.\n\nEvery entry therefore records five things: the exact command, when it ran and\nagainst what version, the result as numbers, **the negative control that proves\nthe test can fail**, and what it does not cover.\n\nThe negative control is the part worth reading. For each suite, defects were\ndeliberately injected and the suite re-run to confirm each one was caught by the\ncheck written for it. Examples from `test_cases/role-coordinator/selftest.md`:\n\n| injected defect | caught by |\n|---|---|\n| a silent verifier reporting as able to verify | `verifier: silent holder` |\n| routing stopping excluding the message's sender | `topic rung refuses a topic only the asker watches` |\n| blocked work offered as actionable | `blocked work is never offered` |\n\n21 checks, 3 injected defects, 5 resulting failures \u2014 each traceable to its own\nassertion.",
+      "content_hash": "sha256:6bd236839b736ace42e93e8dba01d51e07d8b6ddb7106f064f878bb9aea221d2",
+      "heading_path": [
+        "# Verification record \u2014 multi-agent engineering system",
+        "## The rule this record is built on"
+      ],
+      "chunk_type": "rule_group",
+      "token_estimate": 917,
+      "canonical_rank": 100
+    },
+    {
+      "chunk_index": 2,
+      "content": "## What the system does\n\nA set of daemons coordinating several concurrent AI coding sessions against one\ncodebase, brokered by a local service:\n\n- **`daemons/role-coordinator/`** \u2014 tracks task ownership across sessions, chases\n  ones that go quiet, writes completions and blockers back to the role-planner, and\n  routes questions a session cannot address itself. Standard library only.\n- **`daemons/code_daemons/`** \u2014 a two-chain vendoring model for third-party C\n  and C++: upstream releases byte-for-byte in one history, reformatted code in\n  a separate one, with three gates between them (token equality, compiled\n  object equality against a reference build, then the library's own tests).\n- **`test_cases/`** \u2014 the record itself, one directory per application.",
+      "content_hash": "sha256:71fae048c1bcc1e9d534e8dd4de46a233153a5cc56688cc1114fa2fcaa717afe",
+      "heading_path": [
+        "# Verification record \u2014 multi-agent engineering system",
+        "## What the system does"
+      ],
+      "chunk_type": "section",
+      "token_estimate": 754,
+      "canonical_rank": 100
+    },
+    {
+      "chunk_index": 3,
+      "content": "## Things in here that were learned the hard way\n\nEach of these is a defect found by *running* something, not by reading it:\n\n- A daemon posted status updates but never registered an address, so its own\n  inbox was empty by construction. It could never have received the messages it\n  existed to route.\n- A message containing the word \"routing\" matched the routing daemon's **own**\n  subscription topic, whose only subscriber was itself. It would have mailed\n  itself and re-processed the same message on every tick, forever.\n- A self-snapshotting script wrote its state into the temporary directory it ran\n  from, so a cooldown log was deleted at exit and every run repeated work it had\n  already done.\n- A parser cross-check caught a wrong value that schema validation could not\n  see \u2014 but only on the interpreter that had the comparison library installed.\n  Writing now refuses without it, because a check that silently does not run is\n  worse than no check.",
+      "content_hash": "sha256:b9e056f4089b0b9eb4ab6d2ceb683a9d964be4fc9d4dcee3492eab9f3983ee7b",
+      "heading_path": [
+        "# Verification record \u2014 multi-agent engineering system",
+        "## Things in here that were learned the hard way"
+      ],
+      "chunk_type": "section",
+      "token_estimate": 962,
+      "canonical_rank": 100
+    },
+    {
+      "chunk_index": 4,
+      "content": "## What is deliberately not here\n\n- The systems under test, and their configuration.\n- Tests whose fixtures contain infrastructure identifiers. One test of a\n  redaction routine is excluded precisely because its fixtures *are* the strings\n  it redacts.\n- Unit tests embedded inside application source files, which cannot be extracted\n  without publishing the application.\n\nIdentifiers throughout are placeholders (`<HOST>`, `<TAILNET>`, `$HOME`) by\nauthoring convention, not by a scrubbing pass \u2014 see `test_cases/placeholders.md`\nand `test_cases/deny_list.txt`, which is enforced by a publish step that refuses\nrather than warns.",
+      "content_hash": "sha256:b2cf62ab3a979e158b792ca5f59669344b5cdc83971cea56e80d871edea026f2",
+      "heading_path": [
+        "# Verification record \u2014 multi-agent engineering system",
+        "## What is deliberately not here"
+      ],
+      "chunk_type": "section",
+      "token_estimate": 629,
+      "canonical_rank": 100
+    },
+    {
+      "chunk_index": 5,
+      "content": "## Licence\n\nMIT. See `LICENSE`.",
+      "content_hash": "sha256:a1f97a8e59180ddfe9b4bce512ae6a6248e7e9fce1a8ea9c9225589271952af0",
+      "heading_path": [
+        "# Verification record \u2014 multi-agent engineering system",
+        "## Licence"
+      ],
+      "chunk_type": "section",
+      "token_estimate": 31,
+      "canonical_rank": 100
+    }
+  ]
+}
