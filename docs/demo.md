@@ -2,7 +2,7 @@
 
 Captured 2026-09-13 by driving `dist/server.js` over stdio exactly the way an
 MCP client (Claude Code, the Claude desktop app) does, against the live
-work-router daemon and its Postgres/pgvector store. Nothing below is mocked;
+work-router daemon and its retrieval store. Nothing below is mocked;
 the only edits are redactions, each marked `[elided]` — the retrieval chunks
 contain private knowledge-base content that doesn't belong in a public repo.
 

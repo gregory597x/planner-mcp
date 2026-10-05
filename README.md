@@ -4,7 +4,7 @@
 
 A production-deployed [Model Context Protocol](https://modelcontextprotocol.io) server, written in TypeScript against the official MCP SDK, that connects Claude (Claude Code, the Claude desktop app, claude.ai custom connectors) — and non-MCP clients like ChatGPT custom GPTs — to a self-hosted task Planner and work-context router.
 
-It runs daily as a real service: a launchd daemon on macOS serving multiple AI clients against the same backend, reachable only over a private network. [docs/demo.md](docs/demo.md) is a live transcript of the full loop — initialize → `router_task_start` → `router_task_complete` — captured against the running daemon.
+It runs daily as a long-running service, serving multiple AI clients against the same backend over a private network. [docs/demo.md](docs/demo.md) is a live transcript of the full loop — initialize → `router_task_start` → `router_task_complete` — captured against the running daemon.
 
 **What this repo demonstrates**
 
@@ -24,11 +24,11 @@ claude.ai / Claude Code (HTTP) ─┐         │ tool calls (HTTP)
 ChatGPT custom GPT (OpenAPI) ───┤         ▼
 curl / scripts ─────────────────┘   ┌──────────────────┐     ┌─────────────────────┐
         │                           │                  │────►│ Planner backend     │
-        ▼                           │                  │     │ (Axum + Postgres)   │
+        ▼                           │                  │     │ (task store)        │
   private network ────► :8770 ────► │  planner-mcp     │     └─────────────────────┘
                         bearer auth │  --http mode     │     ┌─────────────────────┐
                         (keys.json) │  MCP + REST door │────►│ work-router daemon  │
-                                    └──────────────────┘     │ (pgvector retrieval)│
+                                    └──────────────────┘     │ (context retrieval) │
                                                              └─────────────────────┘
 ```
 
@@ -140,6 +140,7 @@ claude mcp add --transport http planner https://your-host/mcp --header "Authoriz
 | `MCP_PUBLIC_API_KEY` | — | Legacy single-key fallback (optional) |
 | `MCP_PUBLIC_KEYS_FILE` | `./keys.json` | Named-keys file location |
 | `PLANNER_CURRENT_WORK_PATH` | `$HOME/planner_exports/current_work.md` | `planner_current_work` projection file |
+| `NODE` | `node` on `PATH` | Node binary used by `run_gateway.zsh` and `gateway_key.zsh` |
 
 ## Files
 

@@ -4,4 +4,7 @@
 set -euo pipefail
 cd "$(dirname "$0")"
 set -a; source ./.env; set +a
-exec /opt/homebrew/bin/node dist/server.js --http 8770
+# NODE may be set in .env when node is not on PATH (e.g. under a service manager).
+NODE="${NODE:-$(command -v node || true)}"
+[[ -n "$NODE" && -x "$NODE" ]] || { echo "node not found: put it on PATH or set NODE in .env" >&2; exit 1; }
+exec "$NODE" dist/server.js --http 8770

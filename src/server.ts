@@ -426,7 +426,7 @@ return server;
 //   - MCP Streamable HTTP           any path not listed below (use /mcp)
 //   - REST proxy for OpenAPI/Actions clients (e.g. ChatGPT custom GPTs):
 //       /router/*   → admin_router  (ADMIN_ROUTER_BASE_URL, :8765)
-//       /planner/*  → Planner Axum  (PLANNER_BASE_URL, :8000)
+//       /planner/*  → Planner       (PLANNER_BASE_URL, :8000)
 // Fail-closed: refuses to bind a non-loopback address without any key.
 
 const REST_PREFIXES: Array<[string, () => string]> = [

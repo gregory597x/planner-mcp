@@ -2,7 +2,7 @@
 //
 // The daemon is at http://localhost:8765 by default; override with
 // ADMIN_ROUTER_BASE_URL. All calls are stateless — the daemon tracks its own
-// state (Postgres admin_router schema), this is just a wire client.
+// state in its own database; this is just a wire client.
 //
 // Every method returns { ok, status, body } so tool handlers can format
 // consistent responses without swallowing errors.
