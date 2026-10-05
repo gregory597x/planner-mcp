@@ -1,5 +1,5 @@
 #!/usr/bin/env zsh
-# gateway_key.zsh — manage named API keys for the EKS public gateway.
+# gateway_key.zsh — manage named API keys for the HTTP gateway.
 #
 #   ./gateway_key.zsh add <name>       generate a key, add it, print it once
 #   ./gateway_key.zsh revoke <name>    mark a key disabled (401 immediately)
@@ -11,13 +11,15 @@
 set -euo pipefail
 cd "$(dirname "$0")"
 KEYS_FILE="keys.json"
+NODE="${NODE:-$(command -v node || true)}"
+[[ -n "$NODE" ]] || { echo "node not found: put it on PATH or set NODE" >&2; exit 1; }
 
 cmd="${1:-}" name="${2:-}"
 
 [[ -f "$KEYS_FILE" ]] || { print -r -- "[]" > "$KEYS_FILE"; chmod 600 "$KEYS_FILE"; }
 
 edit_json() {  # $1 = node expression operating on `keys`; prints new JSON
-  /opt/homebrew/bin/node -e '
+  "$NODE" -e '
     const fs = require("fs");
     const keys = JSON.parse(fs.readFileSync("'"$KEYS_FILE"'", "utf8"));
     const name = process.argv[1], newKey = process.argv[2] ?? "";
@@ -66,7 +68,7 @@ case "$cmd" in
     echo "Removed '$name'."
     ;;
   list)
-    /opt/homebrew/bin/node -e '
+    "$NODE" -e '
       const keys = JSON.parse(require("fs").readFileSync("'"$KEYS_FILE"'", "utf8"));
       if (!keys.length) console.log("(no named keys)");
       for (const k of keys) console.log(`${k.name}\t${k.disabled ? "REVOKED" : "active"}`);

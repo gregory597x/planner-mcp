@@ -1,7 +1,7 @@
-// api_keys — named API keys for the public gateway.
+// api_keys — named API keys for the HTTP gateway.
 //
 // Keys live in keys.json (chmod 600) next to package.json:
-//   [ { "name": "greg", "key": "<secret>", "disabled": true? }, ... ]
+//   [ { "name": "alice", "key": "<secret>", "disabled": true? }, ... ]
 // MCP_PUBLIC_API_KEY remains accepted as a fallback under the name "env".
 // The file is re-read whenever its mtime changes, so adding or revoking a
 // key takes effect without a service restart. Manage it with gateway_key.zsh.
