@@ -34,10 +34,6 @@ TREES = [
     "TCS-Software_Projects/_cpp-v20_projects/MRI_Demonstration",
     "TCS-Software_Projects/_cpp-v20_projects/Karmarkar_module",
     "TCS-Software_Projects/_cpp-v20_projects/math_symbolic",
-    # game track, added 2026-09-11 by code-role-terrain-01
-    "TCS-Software_Projects/_cpp-v20_projects/PlanetEngine",
-    # game track consumer, added 2026-09-13 by code-role-combat-01
-    "TCS-Software_Projects/_cpp-v20_projects/PlanetGame",
     "TCS-Planner/docs", "TCS-Planner/scripts",
     "TCS-Software_Workspace/MRI-rethink",
     # sibling explanation docs, added 2026-09-11 by code-role-solver-b-01
